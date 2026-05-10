@@ -1,0 +1,73 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "A drink product in the menu",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "priceM": { "type": "number" },
+        "priceL": { "type": "number" },
+        "priceXL": { "type": "number" },
+        "description": { "type": "string" },
+        "isAvailable": { "type": "boolean" },
+        "imageUrl": { "type": "string" }
+      },
+      "required": ["name", "category"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "A category of drinks",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "displayOrder": { "type": "number" }
+      },
+      "required": ["name"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "A customer order",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "items": { "type": "array" },
+        "totalAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["PENDING", "PREPARING", "READY", "COMPLETED", "CANCELLED"] },
+        "orderNumber": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["items", "totalAmount", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "products": {
+      "schema": "Product",
+      "description": "Collection of all drink products"
+    },
+    "categories": {
+      "schema": "Category",
+      "description": "Collection of drink categories"
+    },
+    "orders": {
+      "schema": "Order",
+      "description": "Collection of customer orders"
+    },
+    "users": {
+        "schema": {
+            "title": "User",
+            "type": "object",
+            "properties": {
+                "displayName": { "type": "string" },
+                "email": { "type": "string" },
+                "role": { "type": "string", "enum": ["USER", "ADMIN"] },
+                "createdAt": { "type": "string", "format": "date-time" }
+            }
+        },
+        "description": "System users and admins"
+    }
+  }
+}
